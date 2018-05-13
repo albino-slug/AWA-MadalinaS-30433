@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Applying CRUD on items</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <tbody>
+
+    <th>
+    <td>ID</td>
+    <td>title</td>
+    <td>creator</td>
+    <td>type</td>
+    <td>description</td>
+    </th>
+    <tr th:each="item : ${ itemList }">
+        <td th:text="${ item.id }">ID</td>
+        <td th:text="${ item.title }">title</td>
+        <td th:text="${ item.creator }">creator</td>
+        <td th:text="${ item.type }">type</td>
+        <td th:text="${ item.description }">description</td>
+    </tr>
+
+    <td>Errors</td>
+    <tr th:each="error : ${ errorList }">
+        <td th:text="${ error }">errors</td>
+    </tr>
+
+    <form th:action="@{/crud-i}" th:object="${item}" modelAttribute="item" method="post" class="form-horizontal col-sm-6 col-sm-offset-3">
+
+        <tr>
+            <td>Id:</td>
+            <td><input type="number" th:field="${item.id}" id="id"/></td>
+            <td th:if="${#fields.hasErrors('id')}" th:errors="${user.id}">Id Error</td>
+        </tr>
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" th:field="${item.title}" /></td>
+            <td th:if="${#fields.hasErrors('title')}" th:errors="${item.title}">Title Error</td>
+        </tr>
+        <tr>
+            <td>Creator:</td>
+            <td><input type="text" th:field="${item.creator}" /></td>
+            <td th:if="${#fields.hasErrors('author')}" th:errors="${item.creator}">Creator Error</td>
+        </tr>
+        <tr>
+            <td>Type:</td>
+            <td><input type="text" th:field="${item.type}" /></td>
+            <td th:if="${#fields.hasErrors('type')}" th:errors="${item.type}">Type Error</td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="number" th:field="${item.description}" /></td>
+            <td th:if="${#fields.hasErrors('description')}" th:errors="${item.description}">Description Error</td>
+        </tr>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="findAll">list all</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="save">save</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="delete">delete (by id)</button>
+            </div>
+        </div>
+
+    </form>
+
+    </tbody>
+</table>
+<h1>
+    <span th:text="'Errors:' + ${message}"></span>
+</h1>
+</body>
+</html>

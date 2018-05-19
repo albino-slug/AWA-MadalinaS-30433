@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>USER PROCESS COURSES</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<table>
+
+    <th>
+    <td>ID</td>
+    <td>name</td>
+    <td>startDate</td>
+    <td>endDate</td>
+    <td>description</td>
+    </th>
+    <tr th:each="course : ${ courseList }">
+        <td></td>
+        <td th:text="${ course.id }">ID</td>
+        <td th:text="${ course.name }">name</td>
+        <td th:text="${ course.startDate }">startDate</td>
+        <td th:text="${ course.endDate }">endDate</td>
+        <td th:text="${ course.description }">description</td>
+    </tr>
+</table>
+<form th:action="@{/user_process_courses}" th:object="${course}" modelAttribute="course" method="post" class="form-horizontal col-sm-6 col-sm-offset-3">
+
+    <table>
+        <tr>
+            <td>Id:</td>
+            <td><input type="number" th:field="${course.id}" id="id"/></td>
+            <td th:if="${#fields.hasErrors('id')}" th:errors="${course.id}">Id Error</td>
+        </tr>
+        <tr>
+            <td>name:</td>
+            <td><input type="text" th:field="${course.name}" /></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="${course.name}">Name Error</td>
+        </tr>
+        <tr>
+            <td>date:</td>
+            <td><input type="date" th:field="${course.startDate}" /></td>
+            <td th:if="${#fields.hasErrors('startDate')}" th:errors="${course.startDate}">Date Error</td>
+        </tr>
+        <tr>
+            <td>description:</td>
+            <td><input type="text" th:field="${course.description}" /></td>
+            <td th:if="${#fields.hasErrors('description')}" th:errors="${course.description}">Description Error</td>
+        </tr>
+    </table>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button class="btn btn-primary" type="submit" name="action" value="listAllCourses">List All Courses</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button class="btn btn-primary" type="submit" name="action" value="enrollToCourse">Enroll to Course</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button class="btn btn-primary" type="submit" name="action" value="listAllCoursesOfCurrentUser">List All Courses I Enrolled In</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+            <button class="btn btn-primary" type="submit" name="action" value="dropOutOfCourse">Drop out of Course</button>
+        </div>
+    </div>
+
+</form>
+
+
+<h1>
+    <span th:text="'Errors: ' + ${message}"></span>
+</h1>
+
+
+</body>
+</html>

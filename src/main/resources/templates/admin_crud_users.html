@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin CRUD Users</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<table>
+
+    <th>
+    <td>ID</td>
+    <td>role</td>
+    <td>age</td>
+    <td>email</td>
+    <td>username</td>
+    <td>password</td>
+    </th>
+    <tr th:each="user : ${ userList }">
+        <td></td>
+        <td th:text="${ user.id }">ID</td>
+        <td th:text="${ user.role }">username</td>
+        <td th:text="${ user.age }">date</td>
+        <td th:text="${ user.email }">email</td>
+        <td th:text="${ user.username }">description</td>
+        <td th:text="${ user.password }">password</td>
+    </tr>
+</table>
+    <form th:action="@{/admin_crud_users}" th:object="${user}" modelAttribute="user" method="post" class="form-horizontal col-sm-6 col-sm-offset-3">
+
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td><input type="number" th:field="${user.id}" id="id"/></td>
+                <td th:if="${#fields.hasErrors('id')}" th:errors="${user.id}">Id Error</td>
+            </tr>
+            <tr>
+                <td>username:</td>
+                <td><input type="text" th:field="${user.username}" /></td>
+                <td th:if="${#fields.hasErrors('username')}" th:errors="${user.username}">username Error</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="text" th:field="${user.password}" /></td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="${user.password}">Password Error</td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input type="number" th:field="${user.age}" /></td>
+                <td th:if="${#fields.hasErrors('age')}" th:errors="${user.age}">Age Error</td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input type="text" th:field="${user.email}" /></td>
+                <td th:if="${#fields.hasErrors('email')}" th:errors="${user.email}">Age Error</td>
+            </tr>
+            <tr>
+                <td>Role:</td>
+                <td><input type="text" th:field="${user.role}"/></td>
+                <td th:if="${#fields.hasErrors('role')}" th:errors="${user.role}">Role Error</td>
+            </tr>
+        </table>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="addUser">Add New User</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="deleteUser">Delete User</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button class="btn btn-primary" type="submit" name="action" value="listAllUsers">List All Users</button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <h1>
+        <span th:text="'Errors: ' + ${message}"></span>
+    </h1>
+
+
+</body>
+</html>
